@@ -11,7 +11,6 @@
             --text-color: #333;
         }
 
-        /* 🌟 1. 動態漸層背景設定 */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -21,90 +20,75 @@
             align-items: flex-start;
             min-height: 100vh;
             color: var(--text-color);
-            
-            /* 使用四種充滿活力的顏色進行漸層流動 */
             background: linear-gradient(-45deg, #ff9a44, #fc6076, #00c6ff, #0072ff);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
 
-        /* 控制背景流動的動畫 */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* 🌟 2. 現代感的毛玻璃容器 */
         .container { 
-            background: rgba(255, 255, 255, 0.85); /* 半透明白底 */
-            backdrop-filter: blur(12px); /* 背景模糊化產生毛玻璃效果 */
-            -webkit-backdrop-filter: blur(12px); /* 支援 Safari */
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
             padding: 2rem; 
             border-radius: 16px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
             width: 100%; 
             max-width: 900px; 
-            border: 1px solid rgba(255,255,255,0.4); /* 邊緣高光 */
+            border: 1px solid rgba(255,255,255,0.4); 
             margin-top: 2vh;
         }
 
-        h1 { 
-            text-align: center; 
-            color: #222; 
-            margin-bottom: 1.5rem; 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
-        }
+        h1 { text-align: center; color: #222; margin-bottom: 1.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
         
-        /* 輸入區塊微調 */
         .input-group { 
             display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; 
-            background: rgba(255,255,255,0.6); 
-            padding: 15px; border-radius: 10px; 
+            background: rgba(255,255,255,0.6); padding: 15px; border-radius: 10px; 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
         input, select { 
             flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; 
-            background: rgba(255,255,255,0.9); font-size: 1rem; outline: none;
+            background: rgba(255,255,255,0.9); font-size: 1rem; outline: none; min-width: 120px;
         }
         input:focus, select:focus { border-color: var(--primary-color); }
         
-        /* 按鈕加上立體動畫 */
         button { 
-            padding: 12px 20px; 
-            background: linear-gradient(135deg, var(--primary-color), #1e5a8f); 
+            padding: 12px 20px; background: linear-gradient(135deg, var(--primary-color), #1e5a8f); 
             color: white; cursor: pointer; border: none; font-weight: bold; 
-            border-radius: 8px; font-size: 1rem;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 8px; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s;
         }
-        button:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
-        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
 
-        /* 榜單區塊微調 */
         .boards-container { display: flex; gap: 20px; flex-wrap: wrap; }
         .board { 
-            flex: 1; min-width: 300px; 
-            background: rgba(255,255,255,0.7); 
-            border-radius: 10px; overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            flex: 1; min-width: 300px; background: rgba(255,255,255,0.7); 
+            border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
         .board h2 { text-align: center; color: white; padding: 15px; margin: 0; font-size: 1.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
         .male-board h2 { background: var(--primary-color); }
         .female-board h2 { background: var(--female-color); }
         
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: center; }
+        th, td { padding: 10px; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: center; }
         th { background: rgba(0,0,0,0.04); font-weight: bold; }
         tr:hover { background: rgba(255,255,255,0.9); }
 
-        /* 前三名專屬高亮樣式 */
         .rank-1 td { font-weight: bold; color: #b8860b; background-color: rgba(255, 215, 0, 0.15) !important; }
         .rank-2 td { font-weight: bold; color: #708090; background-color: rgba(192, 192, 192, 0.15) !important; }
         .rank-3 td { font-weight: bold; color: #cd7f32; background-color: rgba(205, 127, 50, 0.15) !important; }
 
-        /* 載入中動畫畫面 */
+        /* 刪除按鈕專屬樣式 */
+        .delete-btn {
+            background: none; border: none; color: #ff4c4c; cursor: pointer;
+            font-size: 1.2rem; padding: 5px; margin: 0; box-shadow: none;
+        }
+        .delete-btn:hover { background: #ffeded; border-radius: 5px; transform: scale(1.1); box-shadow: none;}
+
         .loading-overlay { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(255,255,255,0.7); backdrop-filter: blur(5px);
@@ -126,7 +110,7 @@
     </div>
 
     <div class="container">
-        <h1> 👊握力挑戰排行榜👊 </h1>
+        <h1>👊慈濟大學握力挑戰排行榜👊</h1>
         
         <div class="input-group">
             <select id="genderInput">
@@ -143,14 +127,14 @@
             <div class="board male-board">
                 <h2>男子組戰況 🔵</h2>
                 <table>
-                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th></tr></thead>
+                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th><th>操作</th></tr></thead>
                     <tbody id="maleTableBody"></tbody>
                 </table>
             </div>
             <div class="board female-board">
                 <h2>女子組戰況 🔴</h2>
                 <table>
-                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th></tr></thead>
+                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th><th>操作</th></tr></thead>
                     <tbody id="femaleTableBody"></tbody>
                 </table>
             </div>
@@ -166,6 +150,7 @@
 
         async function addRecord() {
             const data = {
+                id: Date.now(), // 🌟 新增一組獨一無二的 ID，用來精準刪除資料
                 gender: document.getElementById('genderInput').value,
                 name: document.getElementById('nameInput').value.trim(),
                 dept: document.getElementById('deptInput').value.trim(),
@@ -176,11 +161,9 @@
                 alert("請完整填寫姓名、系級與有效分數！"); return;
             }
 
-            // 顯示載入中動畫
             document.getElementById('loading').style.display = 'flex';
 
             try {
-                // 1. 傳送資料到 Google Sheets
                 await fetch(scriptURL, {
                     method: 'POST',
                     mode: 'no-cors', 
@@ -189,12 +172,10 @@
                     body: JSON.stringify(data)
                 });
 
-                // 2. 更新本地畫面與暫存
                 records.push(data);
                 localStorage.setItem('gripCloudData', JSON.stringify(records));
                 updateTables();
 
-                // 3. 清空輸入框準備下一次輸入
                 document.getElementById('nameInput').value = '';
                 document.getElementById('deptInput').value = '';
                 document.getElementById('scoreInput').value = '';
@@ -202,15 +183,32 @@
 
             } catch (error) {
                 console.error('Error!', error.message);
-                alert("同步失敗，請檢查網路連接。但別擔心，您可以重新嘗試！");
+                alert("同步失敗，請檢查網路連接。");
             } finally {
-                // 隱藏載入動畫
                 document.getElementById('loading').style.display = 'none';
             }
         }
 
+        // 🌟 新增的刪除單筆紀錄功能
+        function deleteRecord(recordId) {
+            // 加入簡單密碼防護
+            const pwd = prompt("🗑️ 要刪除這筆紀錄嗎？\n請輸入管理員密碼 (預設: 8888)：");
+            
+            if (pwd === "123") {
+                // 利用 ID 過濾掉不要的那筆資料
+                records = records.filter(r => r.id.toString() !== recordId.toString());
+                
+                // 存回瀏覽器並更新畫面
+                localStorage.setItem('gripCloudData', JSON.stringify(records));
+                updateTables();
+                
+                alert("✅ 畫面上的紀錄已刪除！\n(⚠️ 提醒：請記得手動前往 Google Sheets 刪除該筆存檔)");
+            } else if (pwd !== null) {
+                alert("❌ 密碼錯誤，取消刪除！");
+            }
+        }
+
         function updateTables() {
-            // 分數由高到低排序
             records.sort((a, b) => b.score - a.score);
             
             const render = (id, gender) => {
@@ -229,7 +227,16 @@
                     const tr = document.createElement('tr');
                     if (rank <= 3) tr.classList.add(`rank-${rank}`);
                     
-                    tr.innerHTML = `<td>${rankDisplay}</td><td>${r.name}</td><td>${r.dept}</td><td>${r.score.toFixed(1)}</td>`;
+                    // 確保舊資料即使沒有 ID 也能用名字+分數作為辨識基礎
+                    const uniqueId = r.id ? r.id : `${r.name}-${r.score}`;
+
+                    tr.innerHTML = `
+                        <td>${rankDisplay}</td>
+                        <td>${r.name}</td>
+                        <td>${r.dept}</td>
+                        <td>${r.score.toFixed(1)}</td>
+                        <td><button class="delete-btn" onclick="deleteRecord('${uniqueId}')" title="刪除此紀錄">❌</button></td>
+                    `;
                     tbody.appendChild(tr);
                 });
             };
