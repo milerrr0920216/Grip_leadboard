@@ -3,177 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💪 握力挑戰排行榜 - 最終對決</title>
+    <title>💪 雲端握力挑戰排行榜</title>
     <style>
-        :root {
-            --primary-color: #2E75B6;
-            --female-color: #E06666;
-            --bg-color: #f4f7f6;
+        :root { 
+            --primary-color: #2E75B6; 
+            --female-color: #E06666; 
             --text-color: #333;
         }
 
-        body {
+        /* 🌟 1. 動態漸層背景設定 */
+        body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            padding: 2rem;
             margin: 0;
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start;
+            min-height: 100vh;
+            color: var(--text-color);
+            
+            /* 使用四種充滿活力的顏色進行漸層流動 */
+            background: linear-gradient(-45deg, #ff9a44, #fc6076, #00c6ff, #0072ff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        .container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 900px;
+        /* 控制背景流動的動畫 */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 1.5rem;
+        /* 🌟 2. 現代感的毛玻璃容器 */
+        .container { 
+            background: rgba(255, 255, 255, 0.85); /* 半透明白底 */
+            backdrop-filter: blur(12px); /* 背景模糊化產生毛玻璃效果 */
+            -webkit-backdrop-filter: blur(12px); /* 支援 Safari */
+            padding: 2rem; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+            width: 100%; 
+            max-width: 900px; 
+            border: 1px solid rgba(255,255,255,0.4); /* 邊緣高光 */
+            margin-top: 2vh;
         }
 
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            align-items: center;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
+        h1 { 
+            text-align: center; 
+            color: #222; 
+            margin-bottom: 1.5rem; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
         }
-
-        input[type="text"], input[type="number"], select {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            min-width: 130px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: bold;
-        }
-
-        button:hover { background-color: #1e5a8f; }
-
-        .boards-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .board {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .board h2 {
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 0;
-            color: white;
-        }
-
-        .male-board h2 { background-color: var(--primary-color); }
-        .female-board h2 { background-color: var(--female-color); }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 0;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        th {
-            background-color: #f1f1f1;
-            color: #333;
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) { background-color: #fafafa; }
-        tr:hover { background-color: #f1f1f1; }
-
-        /* 前三名特殊樣式 */
-        .rank-1 td { font-weight: bold; color: #d4af37; background-color: #fff9e6 !important; }
-        .rank-2 td { font-weight: bold; color: #a9a9a9; background-color: #f5f5f5 !important; }
-        .rank-3 td { font-weight: bold; color: #cd7f32; background-color: #fdf5e6 !important; }
         
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
+        /* 輸入區塊微調 */
+        .input-group { 
+            display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; 
+            background: rgba(255,255,255,0.6); 
+            padding: 15px; border-radius: 10px; 
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+        input, select { 
+            flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; 
+            background: rgba(255,255,255,0.9); font-size: 1rem; outline: none;
+        }
+        input:focus, select:focus { border-color: var(--primary-color); }
+        
+        /* 按鈕加上立體動畫 */
+        button { 
+            padding: 12px 20px; 
+            background: linear-gradient(135deg, var(--primary-color), #1e5a8f); 
+            color: white; cursor: pointer; border: none; font-weight: bold; 
+            border-radius: 8px; font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2); 
         }
 
-        .export-btn { background-color: #4CAF50; flex: 1; }
-        .export-btn:hover { background-color: #45a049; }
-        .danger-btn { background-color: #ff4c4c; flex: 1;}
-        .danger-btn:hover { background-color: #e60000; }
+        /* 榜單區塊微調 */
+        .boards-container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .board { 
+            flex: 1; min-width: 300px; 
+            background: rgba(255,255,255,0.7); 
+            border-radius: 10px; overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .board h2 { text-align: center; color: white; padding: 15px; margin: 0; font-size: 1.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        .male-board h2 { background: var(--primary-color); }
+        .female-board h2 { background: var(--female-color); }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: center; }
+        th { background: rgba(0,0,0,0.04); font-weight: bold; }
+        tr:hover { background: rgba(255,255,255,0.9); }
+
+        /* 前三名專屬高亮樣式 */
+        .rank-1 td { font-weight: bold; color: #b8860b; background-color: rgba(255, 215, 0, 0.15) !important; }
+        .rank-2 td { font-weight: bold; color: #708090; background-color: rgba(192, 192, 192, 0.15) !important; }
+        .rank-3 td { font-weight: bold; color: #cd7f32; background-color: rgba(205, 127, 50, 0.15) !important; }
+
+        /* 載入中動畫畫面 */
+        .loading-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center; z-index: 100; 
+            font-size: 1.5rem; font-weight: bold; color: var(--primary-color);
+        }
+        .spinner {
+            margin-right: 15px; width: 30px; height: 30px; border: 4px solid var(--primary-color);
+            border-top: 4px solid transparent; border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
+    <div id="loading" class="loading-overlay">
+        <div class="spinner"></div> ⏳ 資料同步至 Google Sheets 中...
+    </div>
+
     <div class="container">
-        <h1>💪 握力挑戰雙榜爭霸</h1>
+        <h1>☁️ 雲端握力挑戰排行榜</h1>
         
         <div class="input-group">
-            <select id="genderInput" required>
+            <select id="genderInput">
                 <option value="male">男</option>
                 <option value="female">女</option>
             </select>
-            <input type="text" id="nameInput" placeholder="姓名 (例: 李小明)" required>
-            <input type="text" id="deptInput" placeholder="系級 (例: 物治二)" required>
-            <input type="number" id="scoreInput" placeholder="分數 (kg)" step="0.1" required>
-            <button onclick="addRecord()">➕ 新增紀錄</button>
+            <input type="text" id="nameInput" placeholder="輸入姓名">
+            <input type="text" id="deptInput" placeholder="輸入系級">
+            <input type="number" id="scoreInput" placeholder="分數 (kg)" step="0.1">
+            <button onclick="addRecord()">🚀 送出成績</button>
         </div>
 
         <div class="boards-container">
             <div class="board male-board">
-                <h2>男子組排行榜 🔵</h2>
+                <h2>男子組戰況 🔵</h2>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>排名</th>
-                            <th>姓名</th>
-                            <th>系級</th>
-                            <th>分數(kg)</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th></tr></thead>
                     <tbody id="maleTableBody"></tbody>
                 </table>
             </div>
-
             <div class="board female-board">
-                <h2>女子組排行榜 🔴</h2>
+                <h2>女子組戰況 🔴</h2>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>排名</th>
-                            <th>姓名</th>
-                            <th>系級</th>
-                            <th>分數(kg)</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th></tr></thead>
                     <tbody id="femaleTableBody"></tbody>
                 </table>
             </div>
@@ -181,105 +158,84 @@
     </div>
 
     <script>
-        let records = [];
+        // 🚨 記得把這裡的網址換成你的 Google Apps Script (GAS) 部署網址！
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwOC9-kVWmaGFil-2yHdkTNwHtLAOGfL9z0cnztnL-GlSCP_c6jJFOJP8mefTqFFhpj/exec';
 
-        window.onload = function() {
-            const savedData = localStorage.getItem('gripRankingsV2');
-            if (savedData) {
-                records = JSON.parse(savedData);
+        let records = JSON.parse(localStorage.getItem('gripCloudData')) || [];
+        updateTables();
+
+        async function addRecord() {
+            const data = {
+                gender: document.getElementById('genderInput').value,
+                name: document.getElementById('nameInput').value.trim(),
+                dept: document.getElementById('deptInput').value.trim(),
+                score: parseFloat(document.getElementById('scoreInput').value)
+            };
+
+            if (!data.name || !data.dept || isNaN(data.score)) {
+                alert("請完整填寫姓名、系級與有效分數！"); return;
+            }
+
+            // 顯示載入中動畫
+            document.getElementById('loading').style.display = 'flex';
+
+            try {
+                // 1. 傳送資料到 Google Sheets
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                // 2. 更新本地畫面與暫存
+                records.push(data);
+                localStorage.setItem('gripCloudData', JSON.stringify(records));
                 updateTables();
+
+                // 3. 清空輸入框準備下一次輸入
+                document.getElementById('nameInput').value = '';
+                document.getElementById('deptInput').value = '';
+                document.getElementById('scoreInput').value = '';
+                document.getElementById('nameInput').focus();
+
+            } catch (error) {
+                console.error('Error!', error.message);
+                alert("同步失敗，請檢查網路連接。但別擔心，您可以重新嘗試！");
+            } finally {
+                // 隱藏載入動畫
+                document.getElementById('loading').style.display = 'none';
             }
-        };
-
-        function addRecord() {
-            const gender = document.getElementById('genderInput').value;
-            const name = document.getElementById('nameInput').value.trim();
-            const dept = document.getElementById('deptInput').value.trim();
-            const score = parseFloat(document.getElementById('scoreInput').value);
-
-            if (!name || !dept || isNaN(score)) {
-                alert("請完整填寫名稱、系級與有效的分數！");
-                return;
-            }
-
-            records.push({ gender, name, dept, score });
-
-            document.getElementById('nameInput').value = '';
-            document.getElementById('deptInput').value = '';
-            document.getElementById('scoreInput').value = '';
-            document.getElementById('nameInput').focus();
-
-            updateTables();
-        }
-
-        function renderTable(tbodyId, filteredRecords) {
-            const tbody = document.getElementById(tbodyId);
-            tbody.innerHTML = ''; 
-
-            filteredRecords.forEach((record, index) => {
-                const rank = index + 1;
-                const tr = document.createElement('tr');
-                if (rank <= 3) tr.classList.add(`rank-${rank}`);
-
-                let rankDisplay = rank;
-                if (rank === 1) rankDisplay = '🥇 1';
-                if (rank === 2) rankDisplay = '🥈 2';
-                if (rank === 3) rankDisplay = '🥉 3';
-
-                tr.innerHTML = `
-                    <td>${rankDisplay}</td>
-                    <td>${record.name}</td>
-                    <td>${record.dept}</td>
-                    <td>${record.score.toFixed(1)}</td>
-                `;
-                tbody.appendChild(tr);
-            });
         }
 
         function updateTables() {
+            // 分數由高到低排序
             records.sort((a, b) => b.score - a.score);
-            localStorage.setItem('gripRankingsV2', JSON.stringify(records));
-
-            const maleRecords = records.filter(r => r.gender === 'male');
-            const femaleRecords = records.filter(r => r.gender === 'female');
-
-            renderTable('maleTableBody', maleRecords);
-            renderTable('femaleTableBody', femaleRecords);
-        }
-
-        function clearData() {
-            if (confirm("確定要清除所有排名資料嗎？")) {
-                records = [];
-                localStorage.removeItem('gripRankingsV2');
-                updateTables();
-            }
-        }
-
-        // 匯出成 CSV 的函數
-        function exportToCSV() {
-            if (records.length === 0) {
-                alert("目前沒有資料可以匯出喔！");
-                return;
-            }
-
-            // 處理 BOM 以防 Excel 開啟中文亂碼
-            let csvContent = "\uFEFF性別,姓名,系級,分數(kg)\n";
-
-            records.forEach(row => {
-                let genderText = row.gender === 'male' ? '男' : '女';
-                csvContent += `${genderText},${row.name},${row.dept},${row.score}\n`;
-            });
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            const url = URL.createObjectURL(blob);
             
-            link.setAttribute("href", url);
-            link.setAttribute("download", "握力測驗排行榜資料.csv");
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const render = (id, gender) => {
+                const tbody = document.getElementById(id);
+                tbody.innerHTML = '';
+                
+                const filtered = records.filter(r => r.gender === gender);
+                
+                filtered.forEach((r, i) => {
+                    const rank = i + 1;
+                    let rankDisplay = rank;
+                    if (rank === 1) rankDisplay = '🥇 1';
+                    if (rank === 2) rankDisplay = '🥈 2';
+                    if (rank === 3) rankDisplay = '🥉 3';
+
+                    const tr = document.createElement('tr');
+                    if (rank <= 3) tr.classList.add(`rank-${rank}`);
+                    
+                    tr.innerHTML = `<td>${rankDisplay}</td><td>${r.name}</td><td>${r.dept}</td><td>${r.score.toFixed(1)}</td>`;
+                    tbody.appendChild(tr);
+                });
+            };
+            
+            render('maleTableBody', 'male');
+            render('femaleTableBody', 'female');
         }
     </script>
 </body>
