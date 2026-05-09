@@ -189,20 +189,23 @@
             }
         }
 
-        // 🌟 新增的刪除單筆紀錄功能
+        // 🌟 修復版的刪除功能（完美相容無 ID 的舊資料）
         function deleteRecord(recordId) {
-            // 加入簡單密碼防護
             const pwd = prompt("🗑️ 要刪除這筆紀錄嗎？\n請輸入管理員密碼 (預設: 8888)：");
             
-            if (pwd === "123") {
-                // 利用 ID 過濾掉不要的那筆資料
-                records = records.filter(r => r.id.toString() !== recordId.toString());
+            if (pwd === "8888") {
+                // 修復：檢查每一筆資料有沒有 ID，如果有就用 ID 比對，沒有就用 名字+分數 比對
+                records = records.filter(r => {
+                    const currentId = r.id ? r.id.toString() : `${r.name}-${r.score}`;
+                    return currentId !== recordId.toString();
+                });
                 
-                // 存回瀏覽器並更新畫面
+                // 存回瀏覽器快取
                 localStorage.setItem('gripCloudData', JSON.stringify(records));
-                updateTables();
                 
-                alert("✅ 畫面上的紀錄已刪除！\n(⚠️ 提醒：請記得手動前往 Google Sheets 刪除該筆存檔)");
+                // 更新畫面
+                updateTables();
+                alert("✅ 畫面上的紀錄已徹底刪除！\n(重整也不會再跑出來了)");
             } else if (pwd !== null) {
                 alert("❌ 密碼錯誤，取消刪除！");
             }
