@@ -141,8 +141,8 @@
                 <option value="male">男</option>
                 <option value="female">女</option>
             </select>
-            <input type="text" id="nameInput" placeholder="姓名 (例: 王小明)" required>
-            <input type="text" id="deptInput" placeholder="系級 (例: 資工三)" required>
+            <input type="text" id="nameInput" placeholder="姓名 (例: 李小明)" required>
+            <input type="text" id="deptInput" placeholder="系級 (例: 物治二)" required>
             <input type="number" id="scoreInput" placeholder="分數 (kg)" step="0.1" required>
             <button onclick="addRecord()">➕ 新增紀錄</button>
         </div>
@@ -177,11 +177,6 @@
                     <tbody id="femaleTableBody"></tbody>
                 </table>
             </div>
-        </div>
-
-        <div class="action-buttons">
-            <button class="export-btn" onclick="exportToCSV()">📥 匯出為 Excel (CSV)</button>
-            <button class="danger-btn" onclick="clearData()">⚠️ 清除所有紀錄</button>
         </div>
     </div>
 
