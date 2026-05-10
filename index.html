@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>握力挑戰排行榜</title>
+    <title>👊 慈濟大學 物治週 握力挑戰排行榜 👊</title>
     <style>
         :root { 
             --primary-color: #2E75B6; 
@@ -39,7 +39,7 @@
             border-radius: 16px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
             width: 100%; 
-            max-width: 900px; 
+            max-width: 1000px; /* 稍微加寬以容納學號欄位 */
             border: 1px solid rgba(255,255,255,0.4); 
             margin-top: 2vh;
         }
@@ -53,7 +53,7 @@
         }
         input, select { 
             flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; 
-            background: rgba(255,255,255,0.9); font-size: 1rem; outline: none; min-width: 120px;
+            background: rgba(255,255,255,0.9); font-size: 1rem; outline: none; min-width: 110px;
         }
         input:focus, select:focus { border-color: var(--primary-color); }
         
@@ -66,7 +66,7 @@
 
         .boards-container { display: flex; gap: 20px; flex-wrap: wrap; }
         .board { 
-            flex: 1; min-width: 300px; background: rgba(255,255,255,0.7); 
+            flex: 1; min-width: 320px; background: rgba(255,255,255,0.7); 
             border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
         }
         .board h2 { text-align: center; color: white; padding: 15px; margin: 0; font-size: 1.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
@@ -82,7 +82,6 @@
         .rank-2 td { font-weight: bold; color: #708090; background-color: rgba(192, 192, 192, 0.15) !important; }
         .rank-3 td { font-weight: bold; color: #cd7f32; background-color: rgba(205, 127, 50, 0.15) !important; }
 
-        /* 刪除按鈕專屬樣式 */
         .delete-btn {
             background: none; border: none; color: #ff4c4c; cursor: pointer;
             font-size: 1.2rem; padding: 5px; margin: 0; box-shadow: none;
@@ -119,7 +118,7 @@
             </select>
             <input type="text" id="nameInput" placeholder="輸入姓名">
             <input type="text" id="deptInput" placeholder="輸入系級">
-            <input type="number" id="scoreInput" placeholder="分數 (kg)" step="0.1">
+            <input type="text" id="studentIdInput" placeholder="輸入學號"> <input type="number" id="scoreInput" placeholder="分數 (kg)" step="0.1">
             <button onclick="addRecord()">🚀 送出成績</button>
         </div>
 
@@ -127,14 +126,14 @@
             <div class="board male-board">
                 <h2>男子組戰況 🔵</h2>
                 <table>
-                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th><th>操作</th></tr></thead>
+                    <thead><tr><th>排名</th><th>姓名</th><th>學號</th><th>系級</th><th>分數</th><th>操作</th></tr></thead>
                     <tbody id="maleTableBody"></tbody>
                 </table>
             </div>
             <div class="board female-board">
                 <h2>女子組戰況 🔴</h2>
                 <table>
-                    <thead><tr><th>排名</th><th>姓名</th><th>系級</th><th>分數</th><th>操作</th></tr></thead>
+                    <thead><tr><th>排名</th><th>姓名</th><th>學號</th><th>系級</th><th>分數</th><th>操作</th></tr></thead>
                     <tbody id="femaleTableBody"></tbody>
                 </table>
             </div>
@@ -142,7 +141,7 @@
     </div>
 
     <script>
-        // 🚨 記得把這裡的網址換成你的 Google Apps Script (GAS) 部署網址！
+        // 🚨 GAS 部署網址
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOC9-kVWmaGFil-2yHdkTNwHtLAOGfL9z0cnztnL-GlSCP_c6jJFOJP8mefTqFFhpj/exec';
 
         let records = JSON.parse(localStorage.getItem('gripCloudData')) || [];
@@ -150,15 +149,16 @@
 
         async function addRecord() {
             const data = {
-                id: Date.now(), // 🌟 新增一組獨一無二的 ID，用來精準刪除資料
+                id: Date.now(), 
                 gender: document.getElementById('genderInput').value,
                 name: document.getElementById('nameInput').value.trim(),
                 dept: document.getElementById('deptInput').value.trim(),
+                studentId: document.getElementById('studentIdInput').value.trim(), // 獲取學號
                 score: parseFloat(document.getElementById('scoreInput').value)
             };
 
-            if (!data.name || !data.dept || isNaN(data.score)) {
-                alert("請完整填寫姓名、系級與有效分數！"); return;
+            if (!data.name || !data.dept || !data.studentId || isNaN(data.score)) {
+                alert("請完整填寫姓名、學號、系級與有效分數！"); return;
             }
 
             document.getElementById('loading').style.display = 'flex';
@@ -176,8 +176,10 @@
                 localStorage.setItem('gripCloudData', JSON.stringify(records));
                 updateTables();
 
+                // 清空輸入欄位
                 document.getElementById('nameInput').value = '';
                 document.getElementById('deptInput').value = '';
+                document.getElementById('studentIdInput').value = '';
                 document.getElementById('scoreInput').value = '';
                 document.getElementById('nameInput').focus();
 
@@ -189,23 +191,19 @@
             }
         }
 
-        // 🌟 修復版的刪除功能（完美相容無 ID 的舊資料）
+        // 🌟 修復版的刪除功能
         function deleteRecord(recordId) {
             const pwd = prompt("🗑️ 要刪除這筆紀錄嗎？\n請輸入管理員密碼 (預設: 8888)：");
             
             if (pwd === "8888") {
-                // 修復：檢查每一筆資料有沒有 ID，如果有就用 ID 比對，沒有就用 名字+分數 比對
                 records = records.filter(r => {
                     const currentId = r.id ? r.id.toString() : `${r.name}-${r.score}`;
                     return currentId !== recordId.toString();
                 });
                 
-                // 存回瀏覽器快取
                 localStorage.setItem('gripCloudData', JSON.stringify(records));
-                
-                // 更新畫面
                 updateTables();
-                alert("✅ 畫面上的紀錄已徹底刪除！\n(重整也不會再跑出來了)");
+                alert("✅ 畫面上的紀錄已徹底刪除！");
             } else if (pwd !== null) {
                 alert("❌ 密碼錯誤，取消刪除！");
             }
@@ -230,12 +228,12 @@
                     const tr = document.createElement('tr');
                     if (rank <= 3) tr.classList.add(`rank-${rank}`);
                     
-                    // 確保舊資料即使沒有 ID 也能用名字+分數作為辨識基礎
                     const uniqueId = r.id ? r.id : `${r.name}-${r.score}`;
 
                     tr.innerHTML = `
                         <td>${rankDisplay}</td>
                         <td>${r.name}</td>
+                        <td>${r.studentId || '-'}</td>
                         <td>${r.dept}</td>
                         <td>${r.score.toFixed(1)}</td>
                         <td><button class="delete-btn" onclick="deleteRecord('${uniqueId}')" title="刪除此紀錄">❌</button></td>
